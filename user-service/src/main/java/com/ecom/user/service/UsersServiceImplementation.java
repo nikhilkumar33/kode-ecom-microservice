@@ -1,10 +1,12 @@
 package com.ecom.user.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ecom.user.controller.UsersController;
 import com.ecom.user.entity.Roles;
 import com.ecom.user.entity.Users;
+import com.ecom.user.exception.InvalidUserIdException;
 import com.ecom.user.repository.RolesRepository;
 import com.ecom.user.repository.UsersRepository;
 import com.ecom.user.request.UsersRequest;
@@ -16,15 +18,10 @@ import jakarta.transaction.Transactional;
 public class UsersServiceImplementation implements UsersService
 {
 
-    private final UsersController usersController;
 	@Autowired
 	UsersRepository usersRepository;
 	@Autowired
 	RolesRepository rolesRepository;
-
-    UsersServiceImplementation(UsersController usersController) {
-        this.usersController = usersController;
-    }
 	
 	@Override
 	@Transactional
@@ -50,15 +47,12 @@ public class UsersServiceImplementation implements UsersService
 
 	@Override
 	public UsersDetails getUserDetails(long userId) {
-		Users users = usersRepository.findById(userId).get();
-		
-		if(users==null) {
-			//exception
-		}
-		Roles roles = rolesRepository.findByUserId(users.getUserId());
-		if(roles==null) {
-			//exception
-		}
+		Users users = usersRepository.findById(userId).orElseThrow(() -> 
+										new InvalidUserIdException("No record found.. Invalid user id : " + userId)
+										);;
+										
+		Roles roles = rolesRepository.findByUserId(userId);
+				
 		UsersDetails usersDetails = new UsersDetails();
 		usersDetails.setFirstName(users.getFirstName());
 		usersDetails.setLastName(users.getLastName());

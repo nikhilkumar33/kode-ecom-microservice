@@ -8,7 +8,5 @@ import com.ecom.user.entity.Roles;
 @Repository
 public interface RolesRepository extends CrudRepository<Roles, Long>
 {
-
 	Roles findByUserId(long userId);
-
 }
