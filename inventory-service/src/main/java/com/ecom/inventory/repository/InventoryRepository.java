@@ -9,4 +9,6 @@ import com.ecom.inventory.entity.Inventory;
 public interface InventoryRepository extends JpaRepository<Inventory, Long>
 {
 
+	Inventory findByProductId(long productId);
+
 }

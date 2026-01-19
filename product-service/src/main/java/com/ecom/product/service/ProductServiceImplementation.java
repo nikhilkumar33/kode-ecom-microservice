@@ -12,6 +12,7 @@ import com.ecom.product.repository.CategoriesRepository;
 import com.ecom.product.repository.ProductRepository;
 import com.ecom.product.request.ProductRequest;
 import com.ecom.product.request.StockRequest;
+import com.ecom.product.response.InventoryResponse;
 import com.ecom.product.response.ProductResponse;
 
 import jakarta.transaction.Transactional;
@@ -62,12 +63,15 @@ public class ProductServiceImplementation implements ProductService
 		
 		Categories categories = categoriesRepository.findByProductId(productId);
 		
+		InventoryResponse  inventory = inventoryClient.getStock(productId);
+		
 		ProductResponse response = new ProductResponse();
 		response.setProductId(productId);
 		response.setProductName(products.getProductName());
 		response.setPrice(products.getPrice());
 		response.setDescription(products.getDescription());
 		response.setCategory(categories.getCategory());
+		response.setStockQty(inventory.getStockQty());
 		
 		return response;
 	}
