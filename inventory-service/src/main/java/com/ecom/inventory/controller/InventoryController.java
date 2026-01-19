@@ -1,0 +1,27 @@
+package com.ecom.inventory.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ecom.inventory.request.StockRequest;
+import com.ecom.inventory.service.InventoryService;
+
+@RestController
+@RequestMapping("/inventory")
+public class InventoryController {
+
+	@Autowired
+	InventoryService inventoryService;
+	
+	@PostMapping
+	public ResponseEntity<String> createStock(@RequestBody StockRequest stockRequest)
+	{
+		long inventoryId = inventoryService.createStock(stockRequest);
+		
+		return ResponseEntity.ok("Stock created successfully. Inventory id is: "+inventoryId);
+	}
+}
