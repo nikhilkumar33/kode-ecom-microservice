@@ -3,12 +3,15 @@ package com.ecom.product.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ecom.product.client.InventoryClient;
 import com.ecom.product.entity.Categories;
 import com.ecom.product.entity.Products;
 import com.ecom.product.exception.InvalidProductIdException;
+import com.ecom.product.exception.InventoryStockFailedException;
 import com.ecom.product.repository.CategoriesRepository;
 import com.ecom.product.repository.ProductRepository;
 import com.ecom.product.request.ProductRequest;
+import com.ecom.product.request.StockRequest;
 import com.ecom.product.response.ProductResponse;
 
 import jakarta.transaction.Transactional;
@@ -20,6 +23,8 @@ public class ProductServiceImplementation implements ProductService
 	ProductRepository productRepository;
 	@Autowired
 	CategoriesRepository categoriesRepository;
+	@Autowired
+	InventoryClient inventoryClient;
 	
 	@Override
 	@Transactional
@@ -38,6 +43,14 @@ public class ProductServiceImplementation implements ProductService
 		
 		categoriesRepository.save(categories);
 		
+		StockRequest request = new StockRequest();
+		request.setProductId(products.getProductId());
+		request.setProductName(products.getProductName());
+		request.setStockQty(productRequest.getStockQty());
+		String result = inventoryClient.createStock(request);
+		if(result==null) {
+			throw new InventoryStockFailedException("Failed to create stock.");
+		}
 		return products.getProductId();
 	}
 
