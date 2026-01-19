@@ -1,0 +1,13 @@
+package com.ecom.user.request;
+
+public class UsersRequest {
+
+	private String firstName;
+	private String lastName;
+	private String email;
+	private String mobile;
+	private String password;
+	private String role;
+	
+	
+}

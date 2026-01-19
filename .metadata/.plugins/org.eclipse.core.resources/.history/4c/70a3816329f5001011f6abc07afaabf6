@@ -1,0 +1,8 @@
+package com.ecom.user.entity;
+
+public class Roles {
+	
+	private long roleId;
+	
+
+}

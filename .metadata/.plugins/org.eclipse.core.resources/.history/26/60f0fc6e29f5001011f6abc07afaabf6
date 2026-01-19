@@ -1,0 +1,16 @@
+package com.ecom.user.entity;
+
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+public class Roles {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long roleId;
+	private long userId;
+	private String role;
+	
+
+}
