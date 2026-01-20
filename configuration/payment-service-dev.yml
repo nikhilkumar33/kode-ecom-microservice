@@ -3,7 +3,7 @@ spring:
     name: payment-service
 
   datasource:
-    url: jdbc:mysql://localhost:3306/zepto   # changed from mysql → localhost
+    url: jdbc:mysql://localhost:3306/kodeecom   # changed from mysql → localhost
     username: root
     password: Nikhil@123
     driver-class-name: com.mysql.cj.jdbc.Driver
