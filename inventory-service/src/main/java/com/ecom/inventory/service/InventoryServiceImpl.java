@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 
 import com.ecom.inventory.client.ProductClient;
 import com.ecom.inventory.entity.Inventory;
+import com.ecom.inventory.exception.InvalidProductIdException;
 import com.ecom.inventory.repository.InventoryRepository;
 import com.ecom.inventory.request.StockRequest;
+import com.ecom.inventory.request.UpdateRequest;
 import com.ecom.inventory.response.InventoryResponse;
 import com.ecom.inventory.response.ProductResponse;
 
@@ -45,6 +47,18 @@ public class InventoryServiceImpl implements InventoryService
 	public ProductResponse fetchProduct(long productId) {
 		ProductResponse productResponse =  productClient.fetchProduct(productId);
 		return productResponse;
+	}
+	@Override
+	public int updateProductStock(UpdateRequest request) {
+		Inventory inventory = inventoryRepository.findByProductId(request.getProductid());
+		if(inventory==null) {
+			throw new InvalidProductIdException("No element found! Product id: "+request.getProductid());
+		}
+		
+		inventory.setStockQty(request.getNewStockQty());
+		inventory = inventoryRepository.save(inventory);
+		
+		return inventory.getStockQty();
 	}
 
 }
