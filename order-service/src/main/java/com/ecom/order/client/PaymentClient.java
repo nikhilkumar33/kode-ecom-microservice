@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.ecom.order.request.PaymentRequest;
 import com.ecom.order.response.PaymentResponse;
+import com.ecom.order.tracing.TracingFeignConfig;
 
-@FeignClient(name= "payment-service")
+@FeignClient(name= "payment-service", configuration = TracingFeignConfig.class)
 public interface PaymentClient {
 	
 	@PostMapping("/payments")

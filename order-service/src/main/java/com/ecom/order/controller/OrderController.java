@@ -1,5 +1,7 @@
 package com.ecom.order.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,12 +19,14 @@ import com.ecom.order.service.OrderService;
 @RequestMapping("/orders")
 public class OrderController 
 {
+	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 	@Autowired
 	OrderService orderService;
 	
 	@PostMapping
 	public ResponseEntity<String> placeOrder(@RequestBody OrderRequest orderRequest)
 	{
+		logger.info("Create order request received: {}",orderRequest);
 		long orderId = orderService.createOrder(orderRequest);
 		return ResponseEntity.ok("Order Placed successfully. Order id is: "+orderId);
 	}
@@ -30,6 +34,7 @@ public class OrderController
 	@GetMapping("{orderId}")
 	public ResponseEntity<OrderResponse> getOrderDetails(@PathVariable long orderId)
 	{
+		logger.info("Get order request received: {}",orderId);
 		OrderResponse response = orderService.getOrderDetail(orderId);
 		return ResponseEntity.ok(response);
 	}

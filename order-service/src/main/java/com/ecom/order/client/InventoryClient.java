@@ -5,8 +5,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.ecom.order.request.StockUpdateRequest;
+import com.ecom.order.tracing.TracingFeignConfig;
 
-@FeignClient(name ="inventory-service")
+@FeignClient(name ="inventory-service", configuration = TracingFeignConfig.class)
 public interface InventoryClient 
 {
 	@PutMapping("/inventory/reduce")

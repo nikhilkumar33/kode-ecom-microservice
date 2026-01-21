@@ -18,4 +18,14 @@ public class ReviewExceptionHandler {
 		
 		return ResponseEntity.ok(errorResponse);
 	}
+	
+	@ExceptionHandler(NoProductFoundException.class)
+	public ResponseEntity<ErrorResponse> handleNoProductFoundException(NoProductFoundException ex)
+	{
+		ErrorResponse errorResponse = new ErrorResponse();
+		errorResponse.setErrorCode("NPF-102");
+		errorResponse.setErrorMessage(ex.getMessage());
+		
+		return ResponseEntity.ok(errorResponse);
+	}
 }

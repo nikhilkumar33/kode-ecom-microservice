@@ -1,5 +1,7 @@
 package com.ecom.review.rating.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import com.ecom.review.rating.service.ReviewService;
 @RestController
 @RequestMapping("/reviews")
 public class ReviewController {
+	private static final Logger logger = LoggerFactory.getLogger(ReviewController.class);
 	
 	@Autowired
 	ReviewService reviewService;
@@ -23,7 +26,7 @@ public class ReviewController {
 	@PostMapping
 	public ResponseEntity<String> addProductReview(@RequestBody ReviewRequest reviewRequest)
 	{
-		System.out.println("dsvsbzfaskdsshkk");
+		logger.info("Add product review request received: {}",reviewRequest);
 		long reviewId = reviewService.writeReview(reviewRequest);
 		return ResponseEntity.ok("Review added successfully. Review id: "+reviewId);
 	}
@@ -31,6 +34,7 @@ public class ReviewController {
 	@GetMapping("/product/{productId}")
 	public ResponseEntity<ReviewResponse> getReview(@PathVariable long productId)
 	{
+		logger.info("Get product review request received: {}",productId);
 		ReviewResponse response= reviewService.fetchReview(productId);
 		return ResponseEntity.ok(response);
 	}

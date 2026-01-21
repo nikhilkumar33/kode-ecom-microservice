@@ -5,11 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.ecom.inventory.response.ProductResponse;
+import com.ecom.inventory.tracing.TracingFeignConfig;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 
-@FeignClient(name="product-service")
+@FeignClient(name="product-service", configuration = TracingFeignConfig.class)
 public interface ProductClient {
 	
 	@CircuitBreaker(name = "productServiceCB", fallbackMethod = "fallbackProduct")

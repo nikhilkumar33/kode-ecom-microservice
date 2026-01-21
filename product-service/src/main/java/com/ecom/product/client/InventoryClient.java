@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.ecom.product.exception.InventoryStockFailedException;
 import com.ecom.product.request.StockRequest;
 import com.ecom.product.response.InventoryResponse;
+import com.ecom.product.tracing.TracingFeignConfig;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 
-@FeignClient(name="inventory-service")
+@FeignClient(name="inventory-service", configuration = TracingFeignConfig.class)
 public interface InventoryClient {
 	
 	@CircuitBreaker(name = "inventoryServiceCB", fallbackMethod = "fallbackInventory")
