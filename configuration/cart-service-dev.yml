@@ -27,13 +27,3 @@ eureka:
 feign:
   hystrix:
     enabled: true
-
-spring:
-  data:
-    redis:
-      host: unique-goldfish-27574.upstash.io
-      port: 6379
-      username: default
-      password: AWu2AAIncDE3MmExYzNiMzNmZmQ0NDBmOTU4YWRjYWIzNWQ1YzJjMnAxMjc1NzQ
-      ssl:
-        enabled: true
