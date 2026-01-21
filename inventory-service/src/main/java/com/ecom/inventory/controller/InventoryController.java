@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecom.inventory.request.StockRequest;
-import com.ecom.inventory.request.UpdateRequest;
+import com.ecom.inventory.request.StockUpdateRequest;
 import com.ecom.inventory.response.InventoryResponse;
 import com.ecom.inventory.response.ProductResponse;
 import com.ecom.inventory.service.InventoryService;
@@ -44,7 +44,7 @@ public class InventoryController {
 	}
 	
 	@PutMapping("/reduce")
-	public String updateStock(@RequestBody UpdateRequest request)
+	public String updateStock(@RequestBody StockUpdateRequest request)
 	{
 		int newStock = inventoryService.updateProductStock(request);
 		return "Product stock updated. New stock is: "+newStock;

@@ -6,7 +6,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/nikhilkumar33/kode-ecom.git
+          uri: https://github.com/nikhilkumar33/kode-ecom-microservice
           default-label: main
           clone-on-start: true 
-          search-paths: config
+          search-paths: configuration

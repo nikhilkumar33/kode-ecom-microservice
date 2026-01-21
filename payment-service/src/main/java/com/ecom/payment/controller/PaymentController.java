@@ -18,7 +18,7 @@ public class PaymentController {
 	@Qualifier("upi")
 	PaymentService paymentService;
 	
-	@PostMapping("/makePayment")
+	@PostMapping("/payments")
 	public ResponseEntity<PaymentResponse> makePayment(@RequestBody PaymentRequest paymentRequest) {
 
 		PaymentResponse response = paymentService.processsPayment(paymentRequest);

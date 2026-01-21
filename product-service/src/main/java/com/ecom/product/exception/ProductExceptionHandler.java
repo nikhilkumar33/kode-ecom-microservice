@@ -18,4 +18,14 @@ public class ProductExceptionHandler {
 		
 		return ResponseEntity.ok(errorResponse);
 	}
+	
+	@ExceptionHandler(InventoryStockFailedException.class)
+	public ResponseEntity<ErrorResponse> handleInventoryStockFailedException(InventoryStockFailedException ex)
+	{
+		ErrorResponse errorResponse = new ErrorResponse();
+		errorResponse.setErrorCode("ISF-106");
+		errorResponse.setErrorMessage(ex.getMessage());
+		
+		return ResponseEntity.ok(errorResponse);
+	}
 }

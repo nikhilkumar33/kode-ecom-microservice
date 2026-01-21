@@ -49,6 +49,7 @@ public class ProductServiceImplementation implements ProductService
 		request.setProductName(products.getProductName());
 		request.setStockQty(productRequest.getStockQty());
 		String result = inventoryClient.createStock(request);
+		
 		if(result==null) {
 			throw new InventoryStockFailedException("Failed to create stock.");
 		}
@@ -60,7 +61,7 @@ public class ProductServiceImplementation implements ProductService
 		
 		Products products = productRepository.findById(productId).orElseThrow( () -> 
 													new InvalidProductIdException("No record found ! Invalid product id: "+productId));
-		
+		System.out.println("Hello from kode ecom: ----------------------- : "+products);
 		Categories categories = categoriesRepository.findByProductId(productId);
 		
 		InventoryResponse  inventory = inventoryClient.getStock(productId);

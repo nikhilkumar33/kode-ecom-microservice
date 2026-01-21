@@ -8,7 +8,7 @@ import com.ecom.inventory.entity.Inventory;
 import com.ecom.inventory.exception.InvalidProductIdException;
 import com.ecom.inventory.repository.InventoryRepository;
 import com.ecom.inventory.request.StockRequest;
-import com.ecom.inventory.request.UpdateRequest;
+import com.ecom.inventory.request.StockUpdateRequest;
 import com.ecom.inventory.response.InventoryResponse;
 import com.ecom.inventory.response.ProductResponse;
 
@@ -49,13 +49,13 @@ public class InventoryServiceImpl implements InventoryService
 		return productResponse;
 	}
 	@Override
-	public int updateProductStock(UpdateRequest request) {
+	public int updateProductStock(StockUpdateRequest request) {
 		Inventory inventory = inventoryRepository.findByProductId(request.getProductid());
 		if(inventory==null) {
 			throw new InvalidProductIdException("No element found! Product id: "+request.getProductid());
 		}
-		
-		inventory.setStockQty(request.getNewStockQty());
+		int newStock = inventory.getStockQty() - request.getReduceStockQty();
+		inventory.setStockQty(newStock);
 		inventory = inventoryRepository.save(inventory);
 		
 		return inventory.getStockQty();
