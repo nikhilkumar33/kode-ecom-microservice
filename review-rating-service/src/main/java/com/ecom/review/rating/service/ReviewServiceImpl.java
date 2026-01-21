@@ -1,5 +1,8 @@
 package com.ecom.review.rating.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,16 +41,21 @@ public class ReviewServiceImpl implements ReviewService
 	}
 
 	@Override
-	public ReviewResponse fetchReview(long productId) {
-		ReviewEntity entity = reviewRepository.findByProductId(productId);
-		if(entity==null) {
+	public List<ReviewResponse> fetchReview(long productId) {
+		List<ReviewEntity> entities = reviewRepository.findByProductId(productId);
+		if(entities==null|| entities.isEmpty()) {
 			throw new InvalidProductIdException("No record found! Invalid product id: "+productId);
 		}
-		ReviewResponse response = new ReviewResponse();
-		response.setReviewId(entity.getProductId());
-		response.setReview(entity.getReview());
-		response.setRatingStars(entity.getRatingStars());
-		return response;
+		List<ReviewResponse> al = new ArrayList<ReviewResponse>();
+		for (ReviewEntity entity : entities) {
+	        ReviewResponse response = new ReviewResponse();
+	        response.setReviewId(entity.getReviewId());
+	        response.setReview(entity.getReview());
+	        response.setRatingStars(entity.getRatingStars());
+	        al.add(response);
+	    }
+
+		return al;
 	}
 
 }

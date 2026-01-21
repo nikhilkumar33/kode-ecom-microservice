@@ -1,5 +1,7 @@
 package com.ecom.review.rating.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +34,10 @@ public class ReviewController {
 	}
 	
 	@GetMapping("/product/{productId}")
-	public ResponseEntity<ReviewResponse> getReview(@PathVariable long productId)
+	public ResponseEntity<List<ReviewResponse>> getReview(@PathVariable long productId)
 	{
 		logger.info("Get product review request received: {}",productId);
-		ReviewResponse response= reviewService.fetchReview(productId);
+		List<ReviewResponse> response= reviewService.fetchReview(productId);
 		return ResponseEntity.ok(response);
 	}
 }
