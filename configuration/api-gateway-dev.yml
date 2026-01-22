@@ -27,5 +27,4 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
 
-server:
-  port: 1000
+
