@@ -8,16 +8,16 @@ spring:
           enabled: true
           lower-case-service-id: true
       routes:
-        - id: aadhaar-service
-          uri: lb://aadhaar-service
+        - id: user-service
+          uri: lb://user-service
           predicates:
-            - Path=/api/aadhaar/**
+            - Path=/api/users/**
           filters:
             - StripPrefix=2
-        - id: order-service
-          uri: lb://order-service
+        - id: product-service
+          uri: lb://product-service
           predicates:
-            - Path=/api/orders/**
+            - Path=/api/products/**
           filters:
             - StripPrefix=1
 eureka:
