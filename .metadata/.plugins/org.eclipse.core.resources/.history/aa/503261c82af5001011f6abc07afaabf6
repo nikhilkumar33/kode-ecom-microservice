@@ -1,9 +1,0 @@
-package com.ecom.user.service;
-
-import com.ecom.user.request.UsersRequest;
-
-public interface UsersService {
-	
-	public int createUser(UsersRequest request);
-
-}
